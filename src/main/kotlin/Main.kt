@@ -44,9 +44,9 @@ private fun crawlerCoinData() {
 
     // data-table , class
     val cashBuyIn =
-        jsoup.select("[data-table=\"本行現金買入\"]").select("[class=\"rate-content-cash text-right print_hide\"]").toString()
+        jsoup.select("[data-table=\"本行現金買入\"]").select("[class=\"text-right display_none_print_show print_width\"]").toString()
     val step1CashBuyIn =
-        cashBuyIn.replace("<td data-table=\"本行現金買入\" class=\"rate-content-cash text-right print_hide\">", "")
+        cashBuyIn.replace("<td data-table=\"本行現金買入\" class=\"text-right display_none_print_show print_width\">", "")
     val step2CashBuyIn = step1CashBuyIn.replace("</td>", "/")
     val step3CashBuyIn = step2CashBuyIn.split("/")
 
@@ -75,13 +75,12 @@ private fun crawlerCoinData() {
     val step3SightSoldOut = step2SightSoldOut.split("/")
 
     for (i in step2coin.indices) {
-        println(step3CashBuyIn[i])
         val coin = Coin(
-            step2coin[i],
-            step3CashBuyIn[i],
-            step3CashSoldOut[i],
-            step3SightBuyIn[i],
-            step3SightSoldOut[i]
+            step2coin[i].trim(),
+            step3CashBuyIn[i].trim(),
+            step3CashSoldOut[i].trim(),
+            step3SightBuyIn[i].trim(),
+            step3SightSoldOut[i].trim()
         )
         coinArray.add(coin)
     }
